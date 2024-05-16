@@ -5,13 +5,13 @@ from torch.utils.data import DataLoader
 training_data = datasets.MNIST(root="numbers",
                                download=True,
                                train=True,
-                               transform=ToTensor,
+                               transform=ToTensor(),
                                target_transform=None)
 
 testing_data = datasets.MNIST(root="numbers",
                               download=True,
                               train=False,
-                              transform=ToTensor,
+                              transform=ToTensor(),
                               target_transform=None)
 
 number_labels = training_data.classes

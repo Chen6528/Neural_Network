@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-import torch.utils
+import torch.utils.data
 from torch.utils.data import DataLoader
 
 
@@ -13,9 +13,8 @@ def train_step(model: torch.nn.Module,
                data_loader: torch.utils.data.DataLoader,
                loss_fn: torch.nn.Module,
                optimizer: torch.optim.Optimizer,
-               accuracy_fn
-               ):
-    train_loss, train_acc = 0
+               accuracy_fn):
+    train_loss, train_acc = 0, 0
     for batch, (X, y) in enumerate(data_loader):
         model.train()
         y_pred = model(X)
@@ -35,14 +34,14 @@ def test_step(model: torch.nn.Module,
                data_loader: torch.utils.data.DataLoader,
                loss_fn: torch.nn.Module,
                accuracy_fn):
-    test_loss, test_acc = 0
+    test_loss, test_acc = 0, 0
     model.eval()
 
     with torch.inference_mode():
         for X_test, y_test in data_loader:
             test_pred = model(X_test)
             test_loss += loss_fn(test_pred, y_test)
-            test_acc += accuracy_fn(y_true=y_test, y_pred=test_pred.argmax(dim=1))
+            test_acc += accuracy_fn(y_true=y_test, pred=test_pred.argmax(dim=1))
         
         test_loss /= len(data_loader)
         test_acc /= len(data_loader)

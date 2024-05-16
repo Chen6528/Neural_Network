@@ -25,7 +25,7 @@ class NumberModel(nn.Module):
         )
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(in_features=hidden_units,
+            nn.Linear(in_features=hidden_units*196,
                       out_features=output_shape)
         )
     def forward(self, x):

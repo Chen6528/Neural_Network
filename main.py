@@ -32,7 +32,3 @@ for epoch in range(epochs):
               loss_fn=loss_function,
               accuracy_fn=accuracy_fn)
     
-    
-
-
-
