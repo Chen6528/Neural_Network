@@ -3,11 +3,8 @@ from torch import nn
 from model import NumberModel
 from load import *
 from functions import *
-
-#visualization
 import matplotlib.pyplot as plt
-from mlxtend.plotting import plot_confusion_matrix
-from torchmetrics import ConfusionMatrix
+
 
 num_model = NumberModel(input_shape=1,
                         hidden_units=10,
@@ -31,4 +28,9 @@ for epoch in range(epochs):
               data_loader=test_dataLoader,
               loss_fn=loss_function,
               accuracy_fn=accuracy_fn)
-    
+
+##visualize what it's getting wrong
+confusion_matrix(model=num_model,
+                 data_loader=test_dataLoader,
+                 num_class=number_labels,
+                 data=testing_data)
