@@ -3,7 +3,6 @@ from torch import nn
 from model import NumberModel
 from load import *
 from functions import *
-import matplotlib.pyplot as plt
 
 
 num_model = NumberModel(input_shape=1,

@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from mlxtend.plotting import plot_confusion_matrix
 from torchmetrics import ConfusionMatrix
 
-
 def accuracy_fn(y_true, pred):
     correct = torch.eq(y_true, pred).sum().item()
     acc = (correct / len(pred)) * 100
@@ -58,9 +57,8 @@ def confusion_matrix(model: torch.nn.Module,
     with torch.inference_mode():
         for X, y in (data_loader):
         #add a batch dim (to match shape)
-        
             y_logits = model(X)
-            y_pred = torch.softmax(y_logits.squeeze(), dim=0).argmax(dim=1) #gets logits -> pred probs
+            y_pred = torch.softmax(y_logits.squeeze(), dim=0).argmax(dim=1) 
             y_preds.append(y_pred)
 
     y_pred_tensor = torch.cat(y_preds)
@@ -69,10 +67,9 @@ def confusion_matrix(model: torch.nn.Module,
     confmat_tensor = confmat(preds=y_pred_tensor,
                          target=data.targets)
 
-    # 3. Plot the confusion matrix
     fig, ax = plot_confusion_matrix(
-        conf_mat=confmat_tensor.numpy(), # matplotlib likes working with NumPy 
-        class_names=num_class, # turn the row and column labels into class names
+        conf_mat=confmat_tensor.numpy(),
+        class_names=num_class, 
         figsize=(10, 7)
     )
     plt.show()
